@@ -59,7 +59,7 @@ export function SearchResults({ onNavigate, onClose }: SearchResultsProps) {
         ) : searchResults.length > 0 ? (
           <div className="p-2.5">
             <div className="text-xs text-gray-400 mb-2 pb-1.5 border-b border-white/10">
-              Found {searchResults.length} result{searchResults.length !== 1 ? 's' : ''} for "{searchQuery}"
+              Found {searchResults.length} result{searchResults.length !== 1 ? 's' : ''} for &quot;{searchQuery}&quot;
             </div>
             <div className="space-y-1.5">
               {searchResults.map((result) => (
@@ -99,7 +99,7 @@ export function SearchResults({ onNavigate, onClose }: SearchResultsProps) {
         ) : (
           <div className="flex flex-col items-center justify-center py-12 px-4 text-gray-400">
             <Icons.search className="w-12 h-12 mb-3 opacity-30" />
-            <p className="text-sm font-medium mb-1">No results found for "{searchQuery}"</p>
+            <p className="text-sm font-medium mb-1">No results found for &quot;{searchQuery}&quot;</p>
             <p className="text-xs text-center">Try searching for projects, skills, or technologies</p>
           </div>
         )}

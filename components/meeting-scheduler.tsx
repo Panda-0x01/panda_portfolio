@@ -159,7 +159,7 @@ export function MeetingScheduler({ children }: MeetingSchedulerProps) {
                 </div>
                 <h3 className="text-white font-semibold mb-2">Meeting Scheduled!</h3>
                 <p className="text-gray-300 text-sm">
-                  I'll send you a calendar invite shortly.
+                  I&apos;ll send you a calendar invite shortly.
                 </p>
               </div>
             )}
