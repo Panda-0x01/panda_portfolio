@@ -1,9 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Enable static optimization
-  output: 'standalone',
-  
   // Image optimization
   images: {
     formats: ['image/webp', 'image/avif'],
@@ -13,11 +10,6 @@ const nextConfig: NextConfig = {
   
   // Compression
   compress: true,
-  
-  // Performance optimizations
-  experimental: {
-    optimizeCss: true,
-  },
   
   // Security headers
   async headers() {
