@@ -73,7 +73,7 @@ export function AboutPage() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-white font-semibold">Full Stack Developer</h3>
-                    <p className="text-gray-400 text-sm">Sparks To Ideas • 2024 - 2024</p>
+                    <p className="text-gray-400 text-sm">Sparks To Ideas • 2024 - 2025</p>
                     <p className="text-gray-300 text-sm mt-2">
                       Built and maintained multiple client projects using modern web technologies.
                     </p>

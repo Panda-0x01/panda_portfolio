@@ -9,7 +9,7 @@ const projects = [
     description: "A cross-platform desktop AI assistant powered by Ollama, featuring voice I/O, local-first privacy, and extensible plugin system.",
     technologies: ["Electron", "React", "Ollama", "TypeScript", "Tauri"],
     status: "Completed",
-    year: "2024",
+    year: "2025",
     liveUrl: "https://zeno-main.vercel.app",
     githubUrl: "https://github.com/Panda-0x01/zeno_AI"
   },
@@ -18,7 +18,7 @@ const projects = [
     description: "A production-ready platform for monitoring APIs and user accounts, detecting suspicious activity, and sending real-time alerts.",
     technologies: ["Next.js", "Supabase", "TypeScript", "Tailwind CSS", "Prisma"],
     status: "In Progress",
-    year: "2024",
+    year: "2025",
     liveUrl: "https://boing-main.vercel.app",
     githubUrl: "https://github.com/Panda-0x01/Boing_API"
   },
