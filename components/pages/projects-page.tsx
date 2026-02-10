@@ -27,7 +27,7 @@ const projects = [
     description: "A lightweight, cross-platform CLI cybersecurity toolkit for network reconnaissance and security testing. Designed for penetration testers, security professionals, and network administrators.",
     technologies: ["Vue.js", "Express", "Chart.js", "API Integration"],
     status: "Completed",
-    year: "2023",
+    year: "2025",
     liveUrl: "https://github.com/Panda-0x01/neoNet",
     githubUrl: "https://github.com/Panda-0x01/neoNet"
   },
@@ -36,7 +36,7 @@ const projects = [
     description: "The F1 Race Prediction System is a machine learning project that predicts the winners of the upcoming Formula 1 season (2025) based on historical race data (2023–2024)",
     technologies: ["React", "Python", "FastAPI", "PostgreSQL"],
     status: "Completed",
-    year: "2022",
+    year: "2025",
     liveUrl: "https://github.com/Panda-0x01/F1_Race_Prediction_System_2025",
     githubUrl: "https://github.com/Panda-0x01/F1_Race_Prediction_System_2025"
   }
