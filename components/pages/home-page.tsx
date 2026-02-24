@@ -29,7 +29,7 @@ export function HomePage() {
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
                 <Icons.home className="w-5 h-5" />
-                Recent Activity
+                Visit these sites
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -37,9 +37,19 @@ export function HomePage() {
                 <div className="w-2 h-2 bg-green-400 rounded-full mt-2"></div>
                 <div className="flex-1">
                   <p className="text-white">
-                    <span className="font-medium">Portfolio updated</span> - Added new project showcase
+                    <span className="font-medium">Boing</span> - API Abuse & Cybersecurity Monitoring Platform
                   </p>
-                  <p className="text-gray-400 text-sm mt-1">2 hours ago</p>
+                  <p className="text-gray-400 text-sm mt-1">Latest project</p>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="mt-2 border-white/20 text-white hover:bg-white/5 text-xs"
+                    asChild
+                  >
+                    <a href="https://boing-main.vercel.app/" target="_blank" rel="noopener noreferrer">
+                      Visit this site
+                    </a>
+                  </Button>
                 </div>
               </div>
               
@@ -47,19 +57,19 @@ export function HomePage() {
                 <div className="w-2 h-2 bg-blue-400 rounded-full mt-2"></div>
                 <div className="flex-1">
                   <p className="text-white">
-                    <span className="font-medium">New certification earned</span> - AWS Solutions Architect
+                    <span className="font-medium">Zeno</span> - Local AI Desktop Assistant
                   </p>
-                  <p className="text-gray-400 text-sm mt-1">1 day ago</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-purple-400 rounded-full mt-2"></div>
-                <div className="flex-1">
-                  <p className="text-white">
-                    <span className="font-medium">Open source contribution</span> - React ecosystem project
-                  </p>
-                  <p className="text-gray-400 text-sm mt-1">3 days ago</p>
+                  <p className="text-gray-400 text-sm mt-1">Recent project</p>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="mt-2 border-white/20 text-white hover:bg-white/5 text-xs"
+                    asChild
+                  >
+                    <a href="https://zeno-main.vercel.app/" target="_blank" rel="noopener noreferrer">
+                      Visit this site
+                    </a>
+                  </Button>
                 </div>
               </div>
             </CardContent>
@@ -131,7 +141,11 @@ export function HomePage() {
                 </a>
               </Button>
               <MeetingScheduler>
-                <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/5">
+                <Button 
+                  variant="outline" 
+                  className="w-full border-white/20 text-white hover:bg-white/5"
+                  suppressHydrationWarning
+                >
                   <Icons.calendar className="w-4 h-4 mr-2" />
                   Schedule Meeting
                 </Button>
