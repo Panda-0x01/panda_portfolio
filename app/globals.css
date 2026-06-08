@@ -1,26 +1,164 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Inter:wght@300;400;500&display=swap');
+@import "tailwindcss" source("..");
+@source "../components";
+@source "../app";
+@source "./components";
+@source "./app";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: 0 0% 97%;
+  --foreground: 0 0% 6%;
+  --card: 0 0% 97%;
+  --card-foreground: 0 0% 6%;
+  --popover: 0 0% 97%;
+  --popover-foreground: 0 0% 6%;
+  --primary: 0 0% 6%;
+  --primary-foreground: 0 0% 97%;
+  --secondary: 0 0% 93%;
+  --secondary-foreground: 0 0% 6%;
+  --muted: 0 0% 93%;
+  --muted-foreground: 0 0% 45%;
+  --accent: 0 0% 90%;
+  --accent-foreground: 0 0% 6%;
+  --destructive: 0 72% 50%;
+  --destructive-foreground: 0 0% 97%;
+  --border: 0 0% 80%;
+  --input: 0 0% 80%;
+  --ring: 0 0% 6%;
+  --radius: 0px;
+
+  --bg: #f7f6f3;
+  --ink: #0f0f0f;
+  --ink-muted: #737373;
+  --accent-blue: #0ea5e9;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --background: 0 0% 6%;
+  --foreground: 0 0% 93%;
+  --card: 0 0% 8%;
+  --card-foreground: 0 0% 93%;
+  --popover: 0 0% 8%;
+  --popover-foreground: 0 0% 93%;
+  --primary: 0 0% 93%;
+  --primary-foreground: 0 0% 6%;
+  --secondary: 0 0% 12%;
+  --secondary-foreground: 0 0% 90%;
+  --muted: 0 0% 12%;
+  --muted-foreground: 0 0% 55%;
+  --accent: 0 0% 15%;
+  --accent-foreground: 0 0% 90%;
+  --destructive: 0 62% 50%;
+  --destructive-foreground: 0 0% 93%;
+  --border: 0 0% 18%;
+  --input: 0 0% 18%;
+  --ring: 0 0% 93%;
+
+  --bg: #0f0f0f;
+  --ink: #f0ede8;
+  --ink-muted: #737373;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", -apple-system, sans-serif;
+  font-weight: 300;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.01em;
+}
+
+/* Editorial serif */
+.serif {
+  font-family: "Playfair Display", Georgia, serif;
+}
+
+/* Utility: thin horizontal rule */
+.rule {
+  border: none;
+  border-top: 1px solid hsl(var(--border));
+  width: 100%;
+}
+
+/* Utility: small caps label */
+.label {
+  font-family: "Inter", sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+}
+
+/* Scroll reveal */
+::selection {
+  background-color: hsl(var(--foreground));
+  color: hsl(var(--background));
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: hsl(var(--background)); }
+::-webkit-scrollbar-thumb { background: hsl(var(--border)); }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground)); }
+
+/* Prose */
+.prose-min h1, .prose-min h2, .prose-min h3 {
+  font-family: "Playfair Display", serif;
+  color: hsl(var(--foreground));
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+.prose-min h1 { font-size: 2.2rem; }
+.prose-min h2 { font-size: 1.6rem; border-bottom: 1px solid hsl(var(--border)); padding-bottom: 0.5rem; }
+.prose-min h3 { font-size: 1.25rem; }
+.prose-min p {
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+  font-size: 0.9375rem;
+}
+.prose-min ul { list-style: none; padding: 0; margin-bottom: 1.25rem; }
+.prose-min li {
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 0.6rem;
+  padding-left: 1.2rem;
+  position: relative;
+  font-size: 0.9375rem;
+}
+.prose-min li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: hsl(var(--muted-foreground));
+}
+.prose-min strong { color: hsl(var(--foreground)); font-weight: 500; }
+.prose-min a { color: hsl(var(--foreground)); text-decoration: underline; text-underline-offset: 3px; }
+.prose-min code {
+  background: hsl(var(--muted));
+  padding: 0.1rem 0.35rem;
+  font-size: 0.825rem;
+  font-family: "Courier New", monospace;
+}
+
+/* Center container overrides to fix spacing/alignment issues on all pages */
+.max-w-5xl {
+  max-width: 64rem !important;
+}
+
+.mx-auto {
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
