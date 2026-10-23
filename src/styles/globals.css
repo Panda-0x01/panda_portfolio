@@ -1,0 +1,184 @@
+@import "./typography.css";
+@import "./animations.css";
+@import "./mockup.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   Panda 0x01 — Global design tokens + base layer
+   Experimental monochrome. Typography-first. No decoration.
+--------------------------------------------------------------------------- */
+
+@layer base {
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f5f5;
+    --muted: #a0a0a0;
+    --line: #333333;
+    --hover: #d9d9d9;
+    --dim: #555555;
+
+    --nav-h: 4.5rem;
+    --gutter: clamp(1.25rem, 4vw, 4.5rem);
+    /* Set by JS while Lenis is active so programmatic scrolling & anchors stay in sync */
+    --scroll-behavior: auto;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    /* Lenis manages smooth scrolling — prevent native smoothing double-up. */
+    scroll-behavior: var(--scroll-behavior);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--ink);
+    color: var(--paper);
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Guard against any accidental horizontal overflow across the site. */
+    overflow-x: clip;
+    width: 100%;
+  }
+
+  /* Lenis is active: hide native scrollbar noise but keep it usable. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  ::selection {
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  /* Minimal, monochrome scrollbar (desktop). */
+  @media (pointer: fine) {
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--ink);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--line);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--dim);
+    }
+  }
+
+  /* Visible, high-contrast focus states for keyboard users. */
+  :focus-visible {
+    outline: 2px solid var(--paper);
+    outline-offset: 3px;
+  }
+
+  /* Custom cursor replaces the native pointer on precise pointers only. */
+  @media (pointer: fine) and (hover: hover) {
+    html.has-custom-cursor,
+    html.has-custom-cursor * {
+      cursor: none !important;
+    }
+  }
+
+  img,
+  svg,
+  video {
+    max-width: 100%;
+    display: block;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+
+  /* Respect the OS-level motion preference everywhere by default. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 1920px;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* Editorial section scaffolding: thin monochrome separators. */
+  .rule {
+    border-top: 1px solid var(--line);
+  }
+
+  .section-shell {
+    position: relative;
+    padding-block: clamp(5rem, 12vw, 11rem);
+  }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: clamp(0.625rem, 0.8vw, 0.7rem);
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .meta {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: clamp(0.625rem, 0.85vw, 0.75rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   First-load curtain: hard-lock scrolling while the loader is up. Applying it
+   to <html> keeps the lock even if another component resets body overflow.
+--------------------------------------------------------------------------- */
+html.is-booting,
+html.is-booting body {
+  overflow: hidden;
+  touch-action: none;
+}

@@ -1,0 +1,318 @@
+/* ---------------------------------------------------------------------------
+   Panda 0x01 — Animation utilities
+   Only transform / opacity / clip-path are animated. GPU friendly.
+--------------------------------------------------------------------------- */
+
+/* Elements that GSAP will animate in get pre-hidden to avoid FOUC.
+   .js-ready is added on mount; if JS is disabled these never hide. */
+.js-ready [data-anim="reveal"] {
+  opacity: 0;
+}
+
+/* Masked line reveal: overflow-hidden wrapper, child slides up. */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em; /* avoid glyph clipping from tight line-height */
+}
+
+.line-mask > * {
+  display: block;
+  will-change: transform;
+}
+
+/* Marquee strip used in the footer / contact band. */
+.marquee {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+@keyframes marquee-x {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-run {
+  animation: marquee-x var(--marquee-duration, 40s) linear infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.caret {
+  animation: blink 1.1s step-end infinite;
+}
+
+/* Subtle scroll affordance in the hero. */
+@keyframes scroll-hint {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(5px);
+    opacity: 0.4;
+  }
+}
+
+.scroll-hint {
+  animation: scroll-hint 1.9s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+/* Horizontal project track. On desktop GSAP owns its transform. */
+.project-track {
+  display: flex;
+}
+
+/* Cursor */
+.cursor-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+
+.cursor-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #ffffff;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0d0d0d;
+  opacity: 0;
+  white-space: nowrap;
+}
+
+@media (pointer: coarse), (hover: none) {
+  .cursor-root {
+    display: none !important;
+  }
+}
+
+/* Reduced motion: everything ends visible and static. */
+@media (prefers-reduced-motion: reduce) {
+  .js-ready [data-anim="reveal"] {
+    opacity: 1 !important;
+  }
+  .reveal-word {
+    color: var(--paper) !important;
+  }
+  .marquee-run {
+    animation: none !important;
+  }
+  .scroll-hint,
+  .caret {
+    animation: none !important;
+  }
+
+  /* No horizontal pin under reduced motion — fall back to a vertical stack so
+     every project stays reachable without scroll-driven motion. */
+  #work {
+    height: auto !important;
+    overflow: visible !important;
+  }
+  [data-project-track] {
+    flex-direction: column !important;
+    gap: 4rem !important;
+    padding-right: var(--gutter) !important;
+  }
+  [data-project-panel] {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+  }
+  [data-project-visual] {
+    flex: none !important;
+    aspect-ratio: 16 / 10 !important;
+    max-height: none !important;
+  }
+  [data-project-visual] > * {
+    transform: none !important;
+  }
+
+  /* Freeze the placeholder motion graphics on a clean static frame. */
+  .pv-sweep,
+  .pv-blip,
+  .pv-ring,
+  .pv-bar,
+  .pv-flow,
+  .pv-node,
+  .pv-scan-y,
+  .pv-scan-x,
+  .pv-caret {
+    animation: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Project visuals — looping "motion graphics" for the work cards.
+   Only transform / opacity / stroke-dashoffset are animated, so these stay on
+   the compositor. The `prefers-reduced-motion` rules above switch them off.
+--------------------------------------------------------------------------- */
+
+/* Trinetra — rotating radar sweep about the centre of its viewBox. */
+.pv-sweep {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: pv-spin 4.6s linear infinite;
+}
+
+/* Pulsing contact blips. */
+.pv-blip {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pv-pulse 2.4s ease-in-out infinite;
+}
+.pv-blip--2 {
+  animation-delay: 0.55s;
+}
+.pv-blip--3 {
+  animation-delay: 1.1s;
+}
+
+/* Softly breathing range rings. */
+.pv-ring {
+  animation: pv-ring 6s ease-in-out infinite;
+}
+
+/* Boing — equaliser bars growing from the baseline. */
+.pv-bar {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: pv-eq 1.5s ease-in-out infinite;
+  animation-delay: var(--d, 0ms);
+}
+
+/* NeoNet — edges with marching dashes to suggest live traffic. */
+.pv-flow {
+  stroke-dasharray: 7 7;
+  animation: pv-flow 1.3s linear infinite;
+}
+
+/* NeoNet — breathing nodes. */
+.pv-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pv-pulse 3s ease-in-out infinite;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Sweeping scan lines (Boing horizontal, Zeno vertical). */
+.pv-scan-y {
+  animation: pv-scan-y 5s linear infinite;
+}
+.pv-scan-x {
+  animation: pv-scan-x 3.6s linear infinite;
+}
+
+/* Zeno — blinking terminal cursor. */
+.pv-caret {
+  animation: blink 1.1s step-end infinite;
+}
+
+@keyframes pv-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pv-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes pv-ring {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes pv-eq {
+  0%,
+  100% {
+    transform: scaleY(0.24);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes pv-flow {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+@keyframes pv-scan-y {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.28;
+  }
+  90% {
+    opacity: 0.28;
+  }
+  100% {
+    transform: translateY(510px);
+    opacity: 0;
+  }
+}
+
+@keyframes pv-scan-x {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.06;
+  }
+  88% {
+    opacity: 0.06;
+  }
+  100% {
+    transform: translateX(680px);
+    opacity: 0;
+  }
+}

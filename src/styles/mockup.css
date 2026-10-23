@@ -1,0 +1,631 @@
+/* ---------------------------------------------------------------------------
+   Product mockups — UI placeholders that read like real apps.
+
+   These are deliberately abstract, monochrome interface concepts built from
+   the same hairline / sharp-corner vocabulary as the rest of the site. They
+   are NOT screenshots of the real products and contain only illustrative,
+   non-real data (TEST-NET addresses, sample counters).
+
+   Sizing: each `.mk` frame is a size container. Every dimension derives from
+   `--u` (= 1cqmin), so the whole mockup scales like a screenshot when the
+   panel is resized, and lays out fluidly so any aspect ratio is filled.
+--------------------------------------------------------------------------- */
+
+.mk {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+  container-type: size;
+
+  --u: 1cqmin;
+  --fs-1: calc(var(--u) * 1.55); /* micro / tags */
+  --fs-2: calc(var(--u) * 1.95); /* labels / mono rows */
+  --fs-3: calc(var(--u) * 2.5); /* small body */
+  --fs-4: calc(var(--u) * 3.1); /* body */
+  --fs-5: calc(var(--u) * 4.4); /* stat value */
+  --fs-6: calc(var(--u) * 6.6); /* hero */
+  --pd: calc(var(--u) * 2.4);
+  --gp: calc(var(--u) * 1.5);
+  --hair: #1e1e1e;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  font-family: "Inter", system-ui, sans-serif;
+  line-height: 1.3;
+  -webkit-font-smoothing: antialiased;
+}
+
+.mk *,
+.mk *::before,
+.mk *::after {
+  box-sizing: border-box;
+}
+
+.mk-mono {
+  font-family: var(--mono);
+  letter-spacing: 0.08em;
+}
+.mk-up {
+  text-transform: uppercase;
+}
+.mk-mut {
+  color: var(--muted);
+}
+.mk-dim {
+  color: var(--dim);
+}
+.mk-paper {
+  color: var(--paper);
+}
+.mk-grow {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------- window bar */
+.mk-winbar {
+  flex: 0 0 auto;
+  height: calc(var(--u) * 7.4);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.8);
+  padding: 0 var(--pd);
+  border-bottom: 1px solid var(--line);
+}
+.mk-dots {
+  display: flex;
+  gap: calc(var(--u) * 0.9);
+  flex: 0 0 auto;
+}
+.mk-dots i {
+  display: block;
+  width: calc(var(--u) * 1.9);
+  height: calc(var(--u) * 1.9);
+  border: 1px solid var(--dim);
+}
+.mk-dots i:first-child {
+  background: var(--dim);
+}
+.mk-title {
+  font-family: var(--mono);
+  font-size: var(--fs-2);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.mk-sub {
+  font-family: var(--mono);
+  font-size: var(--fs-1);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.mk-spacer {
+  flex: 1 1 auto;
+}
+
+.mk-tabs {
+  display: flex;
+  align-items: stretch;
+  align-self: stretch;
+  gap: calc(var(--u) * 2);
+}
+.mk-tab {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 0.9);
+  padding: 0 calc(var(--u) * 0.5);
+  font-family: var(--mono);
+  font-size: var(--fs-2);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid transparent;
+}
+.mk-tab.is-on {
+  color: var(--paper);
+  border-bottom-color: var(--paper);
+}
+
+.mk-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--u) * 0.9);
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  padding: calc(var(--u) * 0.7) calc(var(--u) * 1.3);
+  font-family: var(--mono);
+  font-size: var(--fs-1);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.mk-pill.is-on {
+  color: var(--paper);
+  border-color: var(--dim);
+}
+.mk-led {
+  width: calc(var(--u) * 1.2);
+  height: calc(var(--u) * 1.2);
+  flex: 0 0 auto;
+  background: var(--paper);
+  animation: pv-pulse 1.9s ease-in-out infinite;
+}
+
+/* ---------------------------------------------------------- sub bar + search */
+.mk-subbar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.2);
+  padding: calc(var(--u) * 1.1) var(--pd);
+  border-bottom: 1px solid var(--line);
+}
+.mk-search {
+  flex: 0 1 auto;
+  width: calc(var(--u) * 42);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1);
+  border: 1px solid var(--line);
+  padding: calc(var(--u) * 0.8) calc(var(--u) * 1.2);
+  font-family: var(--mono);
+  font-size: var(--fs-2);
+  color: var(--dim);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------- body panes */
+.mk-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+}
+.mk-side {
+  flex: 0 0 auto;
+  width: calc(var(--u) * 27);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--line);
+}
+.mk-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gp);
+  padding: var(--pd);
+}
+.mk-main.is-flush {
+  padding: 0;
+  gap: 0;
+}
+.mk-rail {
+  flex: 0 0 auto;
+  width: calc(var(--u) * 31);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--line);
+}
+
+.mk-nav {
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--u) * 1.2) 0;
+  gap: calc(var(--u) * 0.3);
+  min-height: 0;
+}
+.mk-nav-item {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.4);
+  padding: calc(var(--u) * 1.05) calc(var(--u) * 1.8);
+  font-family: var(--mono);
+  font-size: var(--fs-2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.mk-nav-item svg {
+  width: calc(var(--u) * 2.5);
+  height: calc(var(--u) * 2.5);
+  flex: 0 0 auto;
+}
+.mk-nav-item.is-on {
+  background: var(--paper);
+  color: var(--ink);
+}
+.mk-nav-foot {
+  margin-top: auto;
+  border-top: 1px solid var(--line);
+  padding: calc(var(--u) * 1.4) calc(var(--u) * 1.8);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 0.6);
+}
+.mk-section {
+  font-family: var(--mono);
+  font-size: var(--fs-1);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--dim);
+  padding: calc(var(--u) * 1.6) calc(var(--u) * 1.8) calc(var(--u) * 0.7);
+}
+
+/* ------------------------------------------------------------- stat tiles */
+.mk-stats {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gp);
+}
+.mk-stat {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 0.7);
+  border: 1px solid var(--line);
+  padding: calc(var(--u) * 1.5) calc(var(--u) * 1.7);
+}
+.mk-stat-v {
+  font-family: var(--mono);
+  font-size: var(--fs-5);
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+.mk-stat-l {
+  font-family: var(--mono);
+  font-size: var(--fs-1);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mk-spark {
+  width: 100%;
+  height: calc(var(--u) * 5);
+  color: var(--paper);
+  display: block;
+}
+
+/* ---------------------------------------------------------------- layouts */
+.mk-grid2 {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  gap: var(--gp);
+  grid-template-columns: 1.5fr 1fr;
+}
+.mk-grid2.is-flip {
+  grid-template-columns: 1fr 1.5fr;
+}
+.mk-grid3 {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  gap: var(--gp);
+  grid-template-columns: calc(var(--u) * 28) 1.1fr 1.4fr;
+}
+
+/* ---------------------------------------------------------------- panels */
+.mk-panel {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+}
+.mk-panel-h {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gp);
+  padding: calc(var(--u) * 1.25) calc(var(--u) * 1.7);
+  border-bottom: 1px solid var(--line);
+}
+.mk-panel-t {
+  font-family: var(--mono);
+  font-size: var(--fs-2);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.mk-panel-b {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+.mk-panel-b.is-pad {
+  padding: calc(var(--u) * 1.5) calc(var(--u) * 1.7);
+}
+
+/* ------------------------------------------------------------ rows / lists */
+.mk-list {
+  display: flex;
+  flex-direction: column;
+}
+.mk-li {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.3);
+  min-width: 0;
+  padding: calc(var(--u) * 1.0) calc(var(--u) * 1.7);
+  border-top: 1px solid var(--hair);
+  font-size: var(--fs-2);
+}
+.mk-li:first-child {
+  border-top: 0;
+}
+.mk-li .mk-mono {
+  font-size: var(--fs-1);
+}
+
+.mk-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-width: calc(var(--u) * 5.4);
+  border: 1px solid var(--line);
+  padding: calc(var(--u) * 0.3) calc(var(--u) * 0.8);
+  font-family: var(--mono);
+  font-size: var(--fs-1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.mk-chip.is-solid {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--ink);
+}
+.mk-chip.is-line {
+  border-color: var(--dim);
+  color: var(--paper);
+}
+
+/* --------------------------------------------------------------- charts */
+.mk-fill {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.mk-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.mk-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: mk-draw 3.4s ease-in-out infinite;
+}
+@keyframes mk-draw {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  55%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* --------------------------------------------------------------- meters */
+.mk-meter {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: calc(var(--u) * 0.9);
+  background: var(--hair);
+  position: relative;
+}
+.mk-meter > i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--paper);
+}
+.mk-meter-slot {
+  flex: 0 0 auto;
+  display: flex;
+  width: calc(var(--u) * 12);
+}
+
+/* Compact two-line resource row (name + value over a full-width meter). */
+.mk-iface {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 0.7);
+  padding: calc(var(--u) * 1.1) calc(var(--u) * 1.7);
+  border-top: 1px solid var(--hair);
+}
+.mk-iface:first-child {
+  border-top: 0;
+}
+.mk-iface-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--u) * 1);
+}
+.mk-iface .mk-meter {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+/* Chat column (Zeno): grows, never wraps its rows' flex sizing. */
+.mk-chat {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------------------------------------------------------- key / value */
+.mk-kv {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: calc(var(--u) * 1.2);
+  padding: calc(var(--u) * 0.95) calc(var(--u) * 1.7);
+  border-top: 1px solid var(--hair);
+}
+.mk-kv:first-child {
+  border-top: 0;
+}
+.mk-kv dt {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: var(--fs-1);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.mk-kv dd {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: var(--fs-2);
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------- messages */
+.mk-msg {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 0.9);
+  padding: calc(var(--u) * 1.5) calc(var(--u) * 1.8);
+  border-top: 1px solid var(--hair);
+}
+.mk-msg:first-child {
+  border-top: 0;
+}
+.mk-msg.is-user {
+  background: #141414;
+}
+.mk-role {
+  font-family: var(--mono);
+  font-size: var(--fs-1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.mk-msg p {
+  margin: 0;
+  font-size: var(--fs-3);
+  color: var(--paper);
+}
+
+.mk-tool {
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+}
+.mk-tool-h {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1);
+  padding: calc(var(--u) * 0.75) calc(var(--u) * 1.2);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: var(--fs-1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.mk-tool-b {
+  padding: calc(var(--u) * 1.0) calc(var(--u) * 1.2);
+  font-family: var(--mono);
+  font-size: var(--fs-2);
+  color: var(--paper);
+  white-space: pre;
+  overflow: hidden;
+}
+.mk-caret {
+  display: inline-block;
+  width: calc(var(--u) * 1.1);
+  height: calc(var(--u) * 2.4);
+  background: var(--paper);
+  vertical-align: -0.2em;
+  animation: blink 1.1s step-end infinite;
+}
+
+.mk-composer {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.2);
+  padding: calc(var(--u) * 1.4) calc(var(--u) * 1.6);
+  border-top: 1px solid var(--line);
+}
+.mk-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 1px solid var(--line);
+  padding: calc(var(--u) * 1.05) calc(var(--u) * 1.3);
+  font-size: var(--fs-3);
+  color: var(--dim);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.mk-btn {
+  flex: 0 0 auto;
+  border: 1px solid var(--paper);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: var(--fs-1);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: calc(var(--u) * 1.05) calc(var(--u) * 1.4);
+  white-space: nowrap;
+}
+.mk-btn.is-ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--paper);
+}
+.mk-session {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.1);
+  min-width: 0;
+  padding: calc(var(--u) * 1.05) calc(var(--u) * 1.7);
+  border-top: 1px solid var(--hair);
+  font-size: var(--fs-2);
+}
+.mk-session:first-child {
+  border-top: 0;
+}
+
+/* --------------------------------------------------------------- footer */
+.mk-foot {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--gp);
+  padding: calc(var(--u) * 1.05) var(--pd);
+  border-top: 1px solid var(--line);
+}
+
+/* Keep the mockups calm for reduced-motion users. */
+@media (prefers-reduced-motion: reduce) {
+  .mk-draw {
+    animation: none !important;
+  }
+}

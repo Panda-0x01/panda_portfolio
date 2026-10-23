@@ -1,0 +1,96 @@
+/* ---------------------------------------------------------------------------
+   Panda 0x01 — Typography system
+   Oversized, condensed, tightly tracked display type. Body stays readable.
+--------------------------------------------------------------------------- */
+
+@layer components {
+  .font-display {
+    font-family: "Anton", "Archivo Black", "Barlow Condensed", sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 0.9;
+    text-transform: uppercase;
+  }
+
+  /* Primary hero word — reference-image scale, nearly full-width. */
+  .type-hero-primary {
+    font-family: "Anton", "Archivo Black", sans-serif;
+    font-weight: 900;
+    font-size: clamp(7rem, 22vw, 28rem);
+    letter-spacing: -0.04em;
+    line-height: 0.85;
+    text-transform: uppercase;
+    font-synthesis: none;
+  }
+
+  .type-hero-secondary {
+    font-family: "Anton", "Archivo Black", sans-serif;
+    font-weight: 900;
+    font-size: clamp(6rem, 20vw, 25rem);
+    letter-spacing: -0.035em;
+    line-height: 0.85;
+    text-transform: uppercase;
+    font-synthesis: none;
+  }
+
+  /* Generic oversized editorial headline. */
+  .type-display {
+    font-family: "Anton", "Archivo Black", sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.75rem, 6vw, 6rem);
+    letter-spacing: -0.025em;
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+
+  .type-display-xl {
+    font-family: "Anton", "Archivo Black", sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 10vw, 9rem);
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+    text-transform: uppercase;
+  }
+
+  .type-project-name {
+    font-family: "Anton", "Archivo Black", sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.25rem, 6.5vw, 7rem);
+    letter-spacing: -0.025em;
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+
+  .type-section-num {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .type-lead {
+    font-size: clamp(1rem, 1.5vw, 1.35rem);
+    line-height: 1.75;
+    letter-spacing: 0.01em;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* Word spans used by the scroll-driven brighten effect. */
+  .reveal-word {
+    color: var(--dim);
+    display: inline-block;
+    letter-spacing: 0.01em;
+    will-change: color;
+  }
+}
+
+/* Prevent any single oversized word from blowing out small viewports. */
+@media (max-width: 480px) {
+  .type-hero-primary,
+  .type-hero-secondary {
+    font-size: 30vw;
+  }
+}

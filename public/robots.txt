@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://panda0x01.vercel.app/sitemap.xml
